@@ -18,6 +18,7 @@ export class SidebarComponent implements OnInit {
     { icon: 'home', title: 'Home', route: 'home' },
     { icon: 'category', title: 'Category', route: 'category' },
     { icon: 'cloud_upload', title: 'Upload', route: 'upload' },
+    { icon: 'playlist_play', title: 'Playlist', route: 'playlist' },
     { icon: 'account_circle', title: 'Profile', route: 'profile' },
   ];
 
@@ -32,12 +33,14 @@ export class SidebarComponent implements OnInit {
   setActiveLink(): void {
     if (this.router.url.includes('/home')) {
       this.activeLink = this.menuItems[0].route;
-    } else if (this.router.url.includes('/profile')) {
-      this.activeLink = this.menuItems[1].route;
     } else if (this.router.url.includes('/category')) {
-      this.activeLink = this.menuItems[2].route;
+      this.activeLink = this.menuItems[1].route;
     } else if (this.router.url.includes('/upload')) {
+      this.activeLink = this.menuItems[2].route;
+    } else if (this.router.url.includes('/playlist')) {
       this.activeLink = this.menuItems[3].route;
+    } else if (this.router.url.includes('/profile')) {
+      this.activeLink = this.menuItems[4].route;
     }  else {
       this.activeLink = '';
     }
