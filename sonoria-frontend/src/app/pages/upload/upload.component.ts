@@ -13,9 +13,9 @@ export class UploadComponent {
   title = '';
   artist = '';
   category = '';
+  customCategory = '';
   categories = ['Pop', 'Rock', 'EDM', 'Hip-hop', 'Jazz', 'Other'];
   imgPreview: string | null = null;
-
 
   mp3File: File | null = null;
   mp3FileName: string = '';
@@ -60,6 +60,7 @@ export class UploadComponent {
 
   onSubmit() {
     // handle upload logic here
-    alert('Upload submitted!');
+    const finalCategory = this.category === 'Other' ? this.customCategory : this.category;
+    alert('Upload submitted!\nCategory: ' + (finalCategory || '(empty)'));
   }
 }
