@@ -1,89 +1,74 @@
-<div class="upload-container upload-2col">
-	<div class="upload-main">
-		<form #uploadForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="off">
-			<div class="upload-container upload-2col">
-				<div class="upload-main">
-					<form #uploadForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="off">
-						<div class="music-file-box">
-							<div class="music-file-icon">
-								<svg width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect width="40" height="40" rx="8" fill="#f3f3f3" />
-									<path
-										d="M28 14v10.5a3.5 3.5 0 1 1-2-3.16V16h-8v8.5a3.5 3.5 0 1 1-2-3.16V14a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"
-										stroke="#b3b3b3" stroke-width="2" />
-								</svg>
-							</div>
-							<div class="music-file-info">
-								<div class="music-file-name">{{ mp3FileName || 'No music file selected' }}</div>
-								<div class="music-file-meta">{{ mp3FileSize ? mp3FileSize + ' / ' + mp3FileType : '' }}
-								</div>
-							</div>
-							<input type="file" #mp3Input accept="audio/mp3,audio/mpeg,audio/wav,audio/ogg"
-								(change)="onMp3Change($event)" hidden />
-							<button type="button" class="music-file-btn" (click)="mp3Input.click()">Choose music
-								file</button>
-							<button *ngIf="mp3File" type="button" class="remove-file-btn"
-								(click)="removeMp3($event)">✕</button>
-						</div>
-						<div class="form-fields">
-							<input class="input" name="title" [(ngModel)]="title" placeholder="Title" required />
-							<input class="input" name="artist" [(ngModel)]="artist" placeholder="Artist / Performer"
-								required />
-							<select class="input" name="category" [(ngModel)]="category" required>
-								<option value="" disabled selected>Category</option>
-								<option *ngFor="let c of categories" [value]="c">{{c}}</option>
-							</select>
-							<input *ngIf="category === 'Other'" class="input" name="customCategory"
-								[(ngModel)]="customCategory" placeholder="Other category (optional)"
-								[required]="false" />
-						</div>
-					</form>
-				</div>
-				<div class="upload-side">
-					<div class="img-upload-box" (click)="imgInput.click()" [class.img-upload-box--active]="imgPreview">
-						<input type="file" #imgInput accept="image/*" (change)="onImgChange($event)" hidden />
-						<ng-container *ngIf="imgPreview; else uploadImgText">
-							<img [src]="imgPreview" alt="preview" class="img-preview" />
-							<button type="button" class="remove-img-btn" (click)="removeImg($event)">✕</button>
-						</ng-container>
-						<ng-template #uploadImgText>
-							<div class="img-upload-placeholder">
-								<svg width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<rect width="60" height="60" rx="12" fill="#222" />
-									<path d="M20 32h20M30 22v20" stroke="#b3b3b3" stroke-width="2.5"
-										stroke-linecap="round" />
-								</svg>
-								<span>Upload image</span>
-							</div>
-						</ng-template>
-					</div>
-				</div>
-			</div>
-
-		</form>
-	</div>
-</div>
-<div class="upload-container upload-2col">
-	<div class="upload-main">
+<div class="upload-page">
+	<form #uploadForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="off" class="upload-form">
 		<div class="upload-container upload-2col">
-			<div class="upload-guides">
-				<div class="guide-col">
-					<div class="guide-title">Instructions:</div>
-					<ul>
-						<li>Your account must be activated and logged in successfully.</li>
-						<li>File size must not exceed 120MB, bit-rate 128kb/s or higher.</li>
-						<li>Supported formats: .mp3, .wma, .mp4, .asf, .wav, .wmv, .mp4, .flv, .mpg.</li>
-					</ul>
+			<div class="upload-main">
+				<h2 class="info-title">Upload your track</h2>
+				<div class="music-file-box">
+					<div class="music-file-icon">
+						<svg width="40" height="40" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect width="40" height="40" rx="8" fill="#1f241f" />
+							<path d="M28 14v10.5a3.5 3.5 0 1 1-2-3.16V16h-8v8.5a3.5 3.5 0 1 1-2-3.16V14a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z" stroke="#b3b3b3" stroke-width="2" />
+						</svg>
+					</div>
+					<div class="music-file-info">
+						<div class="music-file-name">{{ mp3FileName || 'No music file selected' }}</div>
+						<div class="music-file-meta">{{ mp3FileSize ? mp3FileSize + ' / ' + mp3FileType : '' }}</div>
+					</div>
+					<input type="file" #mp3Input accept="audio/mp3,audio/mpeg,audio/wav,audio/ogg" (change)="onMp3Change($event)" hidden />
+					<button type="button" class="music-file-btn" (click)="mp3Input.click()">Choose file</button>
+					<button *ngIf="mp3File" type="button" class="remove-file-btn" (click)="removeMp3($event)" aria-label="Remove music file">✕</button>
 				</div>
-				<div class="guide-col">
-					<div class="guide-title">Regulations:</div>
-					<ul>
-						<li>Uploaded songs violating the Terms of Service will be removed and the account will
-							be permanently deleted.</li>
-						<li>Images with inappropriate content will be removed.</li>
-					</ul>
+				<div *ngIf="mp3Error" class="mp3-error">{{ mp3Error }}</div>
+				<div class="form-fields">
+					<input class="input" name="title" [(ngModel)]="title" placeholder="Title" required />
+					<input class="input" name="artist" [(ngModel)]="artist" placeholder="Artist / Performer" required />
+					<select class="input" name="category" [(ngModel)]="category" required>
+						<option value="" disabled selected>Select category</option>
+						<option *ngFor="let c of categories" [value]="c">{{c}}</option>
+					</select>
+					<input *ngIf="category === 'Other'" class="input" name="customCategory" [(ngModel)]="customCategory" placeholder="Other category (optional)" />
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="upload-btn" [disabled]="!uploadForm.form.valid || !mp3File">Upload</button>
+					<button type="reset" class="cancel-btn" (click)="removeMp3($event); removeImg($event); uploadForm.resetForm();">Reset</button>
 				</div>
 			</div>
+			<div class="upload-side">
+				<div class="img-upload-box" (click)="imgInput.click()" [class.img-upload-box--active]="imgPreview">
+					<input type="file" #imgInput accept="image/*" (change)="onImgChange($event)" hidden />
+					<ng-container *ngIf="imgPreview; else uploadImgText">
+						<img [src]="imgPreview" alt="preview" class="img-preview" />
+						<button type="button" class="remove-img-btn" (click)="removeImg($event)" aria-label="Remove image">✕</button>
+					</ng-container>
+					<ng-template #uploadImgText>
+						<div class="img-upload-placeholder">
+							<svg width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<rect width="60" height="60" rx="12" fill="#222" />
+								<path d="M20 32h20M30 22v20" stroke="#b3b3b3" stroke-width="2.5" stroke-linecap="round" />
+							</svg>
+							<span>Upload image</span>
+							<small class="hint">(Click to select)</small>
+						</div>
+					</ng-template>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="upload-guides">
+		<div class="guide-col">
+			<div class="guide-title">Instructions</div>
+			<ul>
+				<li>Your account must be activated and logged in.</li>
+				<li>File size must not exceed 120MB, bit-rate 128kb/s or higher.</li>
+				<li>Supported: .mp3, .wma, .mp4, .asf, .wav, .wmv, .flv, .mpg.</li>
+			</ul>
+		</div>
+		<div class="guide-col">
+			<div class="guide-title">Regulations</div>
+			<ul>
+				<li>Violating songs will be removed; accounts may be banned.</li>
+				<li>Inappropriate images will be removed.</li>
+			</ul>
 		</div>
 	</div>
 </div>
