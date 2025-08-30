@@ -42,6 +42,22 @@ export const routes: Routes = [
     }
   },
   {
+    path: 'playlist',
+    loadComponent(){
+      return import('../app/pages/playlist/playlist.component').then(
+        (m) => m.PlaylistComponent,
+      )
+    }
+  },
+  {
+    path: 'playlist/:id',
+    loadComponent() {
+      return import('../app/pages/playlist-detail/playlist-detail.component').then(
+        (m) => m.PlaylistDetailComponent,
+      );
+    }
+  },
+  {
     path: 'playlist-detail',
     loadComponent() {
       return import('../app/pages/playlist-detail/playlist-detail.component').then(

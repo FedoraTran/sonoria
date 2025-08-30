@@ -1,1 +1,76 @@
-<p>playlist works!</p>
+<div class="playlist-page-layout">
+  <div class="playlist-grid">
+    <button class="playlist-card" *ngFor="let playlist of playlist" type="button" [routerLink]="['/playlist', playlist.id]">
+      <img [src]="playlist.image" alt="image" class="playlist-image">
+      <h3 class="playlist-title">{{playlist.name}}</h3>
+      <p class="playlist-total">{{playlist.total}}</p>
+    </button>
+    <button class="playlist-card playlist-card--new" type="button" (click)="onNewClick()">
+      <div class="playlist-image playlist-image--new">
+        <span class="playlist-new-icon">+</span>
+      </div>
+      <h3 class="playlist-title">New</h3>
+    </button>
+    <div *ngIf="showCreateForm" class="playlist-create-modal">
+      <button class="playlist-create-close" type="button" (click)="onCancelCreate()" aria-label="Close">&times;</button>
+      <div class="playlist-create-form">
+        <div class="playlist-create-left">
+          <label class="playlist-create-image-label">
+            <input type="file" accept="image/*" (change)="onImageChange($event)" hidden>
+            <div class="playlist-create-image-upload">
+              <ng-container *ngIf="!newPlaylist.image">
+                <span class="playlist-upload-text">Upload image</span>
+              </ng-container>
+              <ng-container *ngIf="newPlaylist.image">
+                <img [src]="newPlaylist.image" class="playlist-create-image" alt="playlist image">
+              </ng-container>
+            </div>
+          </label>
+        </div>
+        <div class="playlist-create-right">
+          <form (ngSubmit)="onSaveCreate()" autocomplete="off">
+            <div class="playlist-form-group">
+              <label>Title *</label>
+              <input type="text" [(ngModel)]="newPlaylist.name" name="name" required placeholder="Name your playlist">
+            </div>
+            <div class="playlist-form-row">
+              <div class="playlist-form-group">
+                <label>Playlist type</label>
+                <select [(ngModel)]="newPlaylist.type" name="type">
+                  <option>Playlist</option>
+                  <option>Album</option>
+                </select>
+              </div>
+              <div class="playlist-form-group">
+                <label>Release date</label>
+                <input type="date" [(ngModel)]="newPlaylist.date" name="date">
+              </div>
+            </div>
+            <div class="playlist-form-group">
+              <label>Genre</label>
+              <input type="text" [(ngModel)]="newPlaylist.genre" name="genre" placeholder="None">
+            </div>
+            <div class="playlist-form-group">
+              <label>Additional tags</label>
+              <input type="text" [(ngModel)]="newPlaylist.tags" name="tags" placeholder="Add tags to describe the genre and mood of your playlist">
+            </div>
+            <div class="playlist-form-group">
+              <label>Description</label>
+              <textarea [(ngModel)]="newPlaylist.description" name="description" placeholder="Describe your playlist"></textarea>
+            </div>
+            <div class="playlist-form-group">
+              <label>Privacy:</label>
+              <label><input type="radio" [(ngModel)]="newPlaylist.privacy" name="privacy" value="public"> Public</label>
+              <label><input type="radio" [(ngModel)]="newPlaylist.privacy" name="privacy" value="private"> Private</label>
+            </div>
+            <div class="playlist-form-actions">
+              <button type="button" (click)="onCancelCreate()">Cancel</button>
+              <button type="submit" [disabled]="!newPlaylist.name">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-queue></app-queue>
+</div>
