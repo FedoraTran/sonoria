@@ -1,11 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-upload',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
+  ],
   templateUrl: './upload.component.html',
   styleUrl: './upload.component.scss'
 })
@@ -13,84 +28,141 @@ export class UploadComponent {
   title = '';
   artist = '';
   category = '';
-  customCategory = '';
   categories = ['Pop', 'Rock', 'EDM', 'Hip-hop', 'Jazz', 'Other'];
   imgPreview: string | null = null;
+  customCategory = '';
+  mp3Error: string | null = null;
+  imgError: string | null = null;
+  imgDragOver = false;
+  mp3DragOver = false;
+
 
   mp3File: File | null = null;
   mp3FileName: string = '';
-  mp3FileType: string = '';
-  mp3FileSize: string = '';
-  mp3Error: string = '';
 
   onFileDrop(event: DragEvent) {
     event.preventDefault();
+    this.mp3DragOver = false;
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      this.handleMp3File(files[0]);
+      const file = files[0];
+      if (file.type === 'audio/mp3' || file.type === 'audio/mpeg') {
+        this.mp3File = file;
+        this.mp3FileName = file.name;
+        this.mp3Error = null;
+      } else {
+        this.mp3Error = 'Please choose a valid MP3 file';
+      }
     }
+  }
+
+  onMp3DragOver(evt: DragEvent) {
+    evt.preventDefault();
+    this.mp3DragOver = true;
+  }
+
+  onMp3DragLeave(evt: DragEvent) {
+    evt.preventDefault();
+    this.mp3DragOver = false;
+  }
+
+  onMp3Drop(evt: DragEvent) {
+    this.onFileDrop(evt);
   }
 
   onMp3Change(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      this.handleMp3File(input.files[0]);
+      const file = input.files[0];
+      if (file.type === 'audio/mp3' || file.type === 'audio/mpeg') {
+        this.mp3File = file;
+        this.mp3FileName = file.name;
+        this.mp3Error = null;
+      } else {
+        this.mp3Error = 'Please choose a valid MP3 file';
+      }
     }
-  }
-
-  handleMp3File(file: File) {
-    const validTypes = ['audio/mp3', 'audio/mpeg', 'audio/wav', 'audio/ogg'];
-    if (validTypes.includes(file.type)) {
-      this.mp3File = file;
-      this.mp3FileName = file.name;
-      this.mp3FileType = file.type.replace('audio/', '').toUpperCase();
-      this.mp3FileSize = this.formatBytes(file.size);
-      this.mp3Error = '';
-    } else {
-      this.mp3Error = 'File must be mp3, wav hoặc ogg!';
-      this.mp3File = null;
-      this.mp3FileName = '';
-      this.mp3FileType = '';
-      this.mp3FileSize = '';
-    }
-  }
-
-  removeMp3(event: Event) {
-    event.stopPropagation();
-    this.mp3File = null;
-    this.mp3FileName = '';
-    this.mp3FileType = '';
-    this.mp3FileSize = '';
-    this.mp3Error = '';
   }
 
   onImgChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        this.imgPreview = e.target?.result as string;
-      };
-      reader.readAsDataURL(input.files[0]);
+      this.readImageFile(input.files[0]);
     }
   }
 
-  removeImg(event: Event) {
-    event.stopPropagation();
-    this.imgPreview = null;
+  private readImageFile(file: File) {
+    this.imgError = null;
+    if (!file.type.startsWith('image/')) {
+      this.imgError = 'Invalid image file';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.imgPreview = e.target?.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
-  formatBytes(bytes: number): string {
-    if (bytes === 0) return '0 B';
-    const k = 1024;
-    const sizes = ['B', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  onImgDragOver(evt: DragEvent) {
+    evt.preventDefault();
+    this.imgDragOver = true;
+  }
+
+  onImgDragLeave(evt: DragEvent) {
+    evt.preventDefault();
+    this.imgDragOver = false;
+  }
+
+  onImgDrop(evt: DragEvent) {
+    evt.preventDefault();
+    this.imgDragOver = false;
+    const files = evt.dataTransfer?.files;
+    if (files && files.length) {
+      this.readImageFile(files[0]);
+    }
   }
 
   onSubmit() {
-    // handle upload logic here
-    const finalCategory = this.category === 'Other' ? this.customCategory : this.category;
-    alert('Upload submitted!\nCategory: ' + (finalCategory || '(empty)'));
+    const payload = {
+      title: this.title,
+      artist: this.artist,
+      category: this.category === 'Other' ? (this.customCategory || 'Other') : this.category,
+      customCategory: this.customCategory || null,
+      hasImage: !!this.imgPreview,
+      audioFileName: this.mp3FileName || null
+    };
+  // Log dạng JSON thuần để không hiển thị prototype
+  console.log('Upload form data:', JSON.stringify(payload));
+  alert('Upload successful');
+  }
+
+  removeMp3(evt?: Event) {
+    evt?.stopPropagation();
+    this.mp3File = null;
+    this.mp3FileName = '';
+  }
+
+  removeImg(evt?: Event) {
+    evt?.stopPropagation();
+    this.imgPreview = null;
+  this.imgError = null;
+  }
+
+  onCategoryChange(value: string) {
+    if (value === 'Other') {
+      // focus custom category field after view updates
+      setTimeout(() => {
+        const el = document.querySelector<HTMLInputElement>('input[name="customCategory"]');
+        el?.focus();
+      });
+    } else {
+      this.customCategory = '';
+    }
+  }
+
+  cancelOther() {
+    this.category = '';
+    this.customCategory = '';
   }
 }
