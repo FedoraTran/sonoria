@@ -1,0 +1,172 @@
+.playlist-create-close {
+  position: absolute;
+  top: 32px;
+  right: 36px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 1100;
+  transition: color 0.2s;
+}
+.playlist-create-close:hover {
+  color: #e74c3c;
+}
+.playlist-create-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.playlist-create-modal > .playlist-create-close {
+  position: absolute;
+  top: 32px;
+  right: 36px;
+}
+.playlist-create-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.playlist-create-form {
+  background: #181818;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: row;
+  min-width: 700px;
+  max-width: 900px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.25);
+  padding: 32px 24px;
+  gap: 32px;
+}
+
+.playlist-create-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.playlist-create-image-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.playlist-create-image-upload {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  background: #232228;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  border: 2px dashed #444;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.playlist-create-image-upload img.playlist-create-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.playlist-create-right {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #fff;
+}
+.playlist-form-row {
+  display: flex;
+  gap: 18px;
+}
+.playlist-form-group label {
+  font-weight: 500;
+  color: #fff;
+}
+.playlist-form-group input,
+.playlist-form-group select,
+.playlist-form-group textarea {
+  background: #232228;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  outline: none;
+}
+.playlist-form-group textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+.playlist-form-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 18px;
+}
+.playlist-form-actions button {
+  background: #232228;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.playlist-form-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.playlist-form-actions button:hover:not(:disabled) {
+  background: #333;
+}
+.playlist-form-group input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+}
+.playlist-form-group label[for],
+.playlist-form-group > label {
+  margin-bottom: 2px;
+}
+.playlist-form-group label input[type="radio"] {
+  vertical-align: middle;
+}
+.playlist-form-group .ng-invalid.ng-touched {
+  border-color: #e74c3c;
+}
+.playlist-form-group .error {
+  color: #e74c3c;
+  font-size: 0.95rem;
+  margin-top: 2px;
+}
