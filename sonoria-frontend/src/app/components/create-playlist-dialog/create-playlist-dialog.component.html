@@ -1,0 +1,47 @@
+<div class="playlist-create-modal">
+  <button class="playlist-create-close" type="button" (click)="onCancelCreate()" aria-label="Close">&times;</button>
+  <div class="playlist-create-form">
+    <div class="playlist-create-left">
+      <label class="playlist-create-image-label">
+        <input type="file" accept="image/*" (change)="onImageChange($event)" hidden>
+        <div class="playlist-create-image-upload">
+          <ng-container *ngIf="!newPlaylist.image">
+            <span class="playlist-upload-text">Upload image</span>
+          </ng-container>
+          <ng-container *ngIf="newPlaylist.image">
+            <img [src]="newPlaylist.image" class="playlist-create-image" alt="playlist image">
+          </ng-container>
+        </div>
+      </label>
+    </div>
+    <div class="playlist-create-right">
+      <form (ngSubmit)="onSaveCreate()" autocomplete="off">
+        <div class="playlist-form-group">
+          <label>Title *</label>
+          <input type="text" [(ngModel)]="newPlaylist.name" name="name" required placeholder="Name your playlist">
+        </div>
+        <div class="playlist-form-group">
+          <label>Genre</label>
+          <input type="text" [(ngModel)]="newPlaylist.genre" name="genre" placeholder="None">
+        </div>
+        <div class="playlist-form-group">
+          <label>Additional tags</label>
+          <input type="text" [(ngModel)]="newPlaylist.tags" name="tags" placeholder="Add tags to describe the genre and mood of your playlist">
+        </div>
+        <div class="playlist-form-group">
+          <label>Description</label>
+          <textarea [(ngModel)]="newPlaylist.description" name="description" placeholder="Describe your playlist"></textarea>
+        </div>
+        <div class="playlist-form-group">
+          <label>Privacy:</label>
+          <label><input type="radio" [(ngModel)]="newPlaylist.privacy" name="privacy" value="public"> Public</label>
+          <label><input type="radio" [(ngModel)]="newPlaylist.privacy" name="privacy" value="private"> Private</label>
+        </div>
+        <div class="playlist-form-actions">
+          <button type="button" (click)="onCancelCreate()">Cancel</button>
+          <button type="submit" [disabled]="!newPlaylist.name">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

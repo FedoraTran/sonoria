@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {MaterialModule} from '../../shared/modules/material.module';
-import {Router} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [MaterialModule, NgClass],
+  imports: [MaterialModule, NgClass, RouterLinkActive, RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
