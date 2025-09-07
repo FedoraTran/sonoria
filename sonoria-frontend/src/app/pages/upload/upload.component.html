@@ -1,4 +1,5 @@
-<div class="upload-shell">
+<div class="app-upload">
+	<div class="upload-shell">
 	<mat-card class="upload-card file-card" appearance="raised">
 		<div class="drop-area" (dragover)="onMp3DragOver($event)" (dragleave)="onMp3DragLeave($event)" (drop)="onMp3Drop($event)" (click)="mp3Input.click()" [class.filled]="mp3FileName" [class.drag-over]="mp3DragOver">
 			<input type="file" #mp3Input accept="audio/mp3,audio/mpeg" (change)="onMp3Change($event)" hidden />
@@ -77,4 +78,5 @@
 					</div>
 		</form>
 	</mat-card>
+	</div>
 </div>

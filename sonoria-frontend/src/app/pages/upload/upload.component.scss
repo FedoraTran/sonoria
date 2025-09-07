@@ -1,26 +1,26 @@
-/* Full viewport layout (no outer scroll) */
-html,
-body,
-:host {
-	height: 100%;
-}
-
 :host {
 	display: block;
+	height: 83vh; /* lock to viewport height to prevent page scroll */
+	overflow: hidden; /* no outer scroll */
 }
 
-/* Material-based new layout */
+.app-upload {
+	height: 100%;
+	width: 100%;
+	display: block;
+	overflow: hidden;
+}
+
 .upload-shell {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
 	gap: 32px;
 	align-items: stretch;
 	width: 100%;
-	//padding: 40px 60px 50px 50px;
-	height: 100%;
+	padding: 10px 10px;
+	height: 99%;
 	box-sizing: border-box;
 	overflow: hidden;
-	/* chặn làm xuất hiện scroll ngoài */
 }
 
 .upload-card {

@@ -14,3 +14,34 @@
   </div>
   <app-queue></app-queue>
 </div>
+
+<!-- Inline create modal -->
+<div class="create-overlay" *ngIf="showCreateForm">
+  <div class="create-backdrop" (click)="onCancelCreate()"></div>
+  <div class="create-modal" role="dialog" aria-modal="true" aria-labelledby="createTitle">
+    <h3 id="createTitle" class="create-title">Create playlist</h3>
+    <form class="create-form" (ngSubmit)="onSaveCreate()">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="newPlaylist.name" name="name" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Total</mat-label>
+        <input matInput [(ngModel)]="newPlaylist.total" name="total" placeholder="e.g., 0 song" />
+      </mat-form-field>
+
+      <div class="img-upload-row">
+        <button mat-stroked-button type="button" (click)="imgInput.click()">Choose image</button>
+        <input type="file" #imgInput accept="image/*" (change)="onImageChange($event)" hidden />
+        <img *ngIf="newPlaylist.image" [src]="newPlaylist.image" alt="preview" class="create-img-preview" />
+      </div>
+
+      <div class="create-actions">
+        <button mat-stroked-button type="button" (click)="onCancelCreate()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!newPlaylist.name">Save</button>
+      </div>
+    </form>
+  </div>
+  
+</div>
