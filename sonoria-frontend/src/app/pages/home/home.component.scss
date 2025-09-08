@@ -1,6 +1,10 @@
 .home-container {
+
   
   min-height: 125vh;
+
+  background: #000;
+
   padding: 24px;
   color: #fff;
   font-family: 'Inter', Arial, sans-serif;
@@ -8,26 +12,27 @@
 
 .featured {
   display: flex;
-  align-items: center; 
+  align-items: center;
   background: #232323;
   border-radius: 18px;
-  padding: 48px;
+  padding: 24px;
   margin-bottom: 36px;
-  gap: 48px;
+  gap: 24px;
 }
 
 .featured-img {
-  width: 240px; 
+  width: 240px;
   height: 240px;
-  border-radius: 18px; 
+  border-radius: 18px;
   object-fit: cover;
-  box-shadow: 0 2px 18px rgba(0,0,0,0.18); 
+  box-shadow: 0 2px 18px rgba(0,0,0,0.18);
 }
 
 .featured-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 12px;
 }
 
 .playlist-label {
@@ -35,29 +40,29 @@
   background: #232323;
   color: #ccc;
   font-size: 0.9rem;
-  padding: 3px 0.7em; 
+  padding: 3px 0.7em;
   border-radius: 8px;
   margin-bottom: 10px;
   border: 1px solid #444;
-  width: fit-content; 
+  width: fit-content;
   min-width: 0;
   text-align: center;
 }
 
 .featured-title {
-  font-size: 2.3rem; 
+  font-size: 2.3rem;
   font-weight: 700;
   margin: 0 0 14px 0;
 }
 
 .featured-meta {
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   color: #bdbdbd;
   margin-bottom: 12px;
 }
 
 .featured-artist {
-  font-size: 1.25rem; 
+  font-size: 1.25rem;
   color: #e0e0e0;
 }
 
@@ -171,6 +176,7 @@
   pointer-events: auto;
 }
 
+
 .explore-item:hover,
 .trending-item:hover {
   background: #292929;
@@ -203,4 +209,5 @@
   opacity: 1;
   pointer-events: auto;
 }
+
 

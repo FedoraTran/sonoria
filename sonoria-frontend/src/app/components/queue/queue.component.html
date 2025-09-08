@@ -1,1 +1,22 @@
-<p>queue works!</p>
+<div id="queue-container">
+	<h2 class="queue-title">Playing...</h2>
+	<div class="queue-current">
+		<img class="queue-thumb" [src]="playing.image" alt="current song">
+		<div class="queue-info">
+			<div class="queue-song queue-song--playing">{{playing.title}}</div>
+			<div class="queue-artist-playing">{{playing.artist}}</div>
+		</div>
+	</div>
+
+
+<h3 class="queue-next-title">Next Up</h3>
+<div class="queue-list">
+	<button class="queue-item" type="button" *ngFor="let song of queue; let i = index" (click)="playFromQueue(i)">
+		<img class="queue-thumb" [src]="song.image" alt="song">
+		<div class="queue-info">
+			<div class="queue-song">{{song.title}}</div>
+			<div class="queue-artist">{{song.artist}}</div>
+		</div>
+	</button>
+</div>
+</div>

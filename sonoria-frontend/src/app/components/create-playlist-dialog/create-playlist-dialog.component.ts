@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import {MaterialModule} from '../../shared/modules/material.module';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { QueueComponent } from '../../components/queue/queue.component';
-import { RouterModule } from '@angular/router';
+import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
-  selector: 'app-playlist',
-  imports: [MaterialModule, CommonModule, FormsModule, RouterModule, QueueComponent],
-  templateUrl: './playlist.component.html',
-  styleUrl: './playlist.component.scss'
+  selector: 'app-create-playlist-dialog',
+    imports: [
+        FormsModule,
+        NgIf
+    ],
+  templateUrl: './create-playlist-dialog.component.html',
+  styleUrl: './create-playlist-dialog.component.scss'
 })
-export class PlaylistComponent {
+export class CreatePlaylistDialogComponent {
   playlist = [
     {
       id: 1,
@@ -56,8 +56,6 @@ export class PlaylistComponent {
       total: "100+ song",
     }
   ];
-
-  showCreateForm = false;
   newPlaylist: any = {
     image: '',
     name: '',
@@ -70,6 +68,8 @@ export class PlaylistComponent {
     type: 'Playlist',
     permalink: ''
   };
+
+  showCreateForm = false;
 
   onNewClick() {
     this.showCreateForm = true;

@@ -1,1 +1,16 @@
-<p>playlist works!</p>
+<div class="playlist-page-layout">
+  <div class="playlist-grid">
+    <button class="playlist-card" *ngFor="let playlist of playlist" type="button" [routerLink]="['/playlist', playlist.id]">
+      <img [src]="playlist.image" alt="image" class="playlist-image">
+      <h3 class="playlist-title">{{playlist.name}}</h3>
+      <p class="playlist-total">{{playlist.total}}</p>
+    </button>
+    <button class="playlist-card playlist-card--new" type="button" (click)="onNewClick()">
+      <div class="playlist-image playlist-image--new">
+        <span class="playlist-new-icon">+</span>
+      </div>
+      <h3 class="playlist-title">New</h3>
+    </button>
+  </div>
+  <app-queue></app-queue>
+</div>

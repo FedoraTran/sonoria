@@ -8,8 +8,9 @@
       @for (item of menuItems; track $index) {
         <a
           mat-list-item
-          (click)="onMenuClick(item.route)"
-          [ngClass]="{ active: item.route === activeLink }"
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
         >
           <mat-icon class="material-symbols-rounded">{{ item.icon }}</mat-icon>
           <span class="menu-title">{{ item.title }}</span>
