@@ -2,7 +2,7 @@
 
 :host {
     display: block;
-    height: 100%;
+    height: 83.8vh;
     overflow: hidden;
     /* prevent page scroll */
     background: #0d0f0d;
@@ -17,7 +17,7 @@
     width: 100%;
     max-width: 100%;
     height: 100%;
-    padding: 50px 70px 0 80px; /* inner spacing instead of external margin */
+    padding: 40px 70px 0 70px; /* inner spacing instead of external margin */
     box-sizing: border-box;
     position: relative;
 }
