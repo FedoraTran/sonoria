@@ -1,6 +1,10 @@
 .home-container {
+
+  
+  min-height: 125vh;
+
   background: #000;
-  //min-height: 125vh;
+
   padding: 24px;
   color: #fff;
   font-family: 'Inter', Arial, sans-serif;
@@ -127,6 +131,9 @@
   border-radius: 16px;
   padding: 0;
   box-shadow: none;
+  position: relative;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
 }
 
 .explore-item img, .trending-item img {
@@ -168,3 +175,39 @@
   opacity: 1;
   pointer-events: auto;
 }
+
+
+.explore-item:hover,
+.trending-item:hover {
+  background: #292929;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+  
+}
+
+.explore-item .play-btn,
+.trending-item .play-btn {
+  color: #111;
+  position: absolute;
+  right: 8px;
+  bottom: 75px;
+  background: #1ed760;
+  border: none;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 2;
+}
+
+.explore-item:hover .play-btn,
+.trending-item:hover .play-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+

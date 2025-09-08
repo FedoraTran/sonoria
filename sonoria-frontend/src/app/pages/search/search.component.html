@@ -1,1 +1,30 @@
-<p>search works!</p>
+<div class="search-page">
+  
+
+  <div class="result-row">
+    <div class="top-result" *ngIf="results.length > 0">
+      <div class="section-title">Top result</div>
+      <div class="top-card">
+        <img [src]="results[0]?.cover" alt="" />
+        <div class="top-info">
+          <div class="top-title">{{ results[0]?.title }}</div>
+          <div class="top-meta">Song • {{ results[0]?.artist }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="song-list-col">
+      <div class="section-title">Songs</div>
+      <div class="song-list">
+        <div class="song-item" *ngFor="let song of results">
+          <img [src]="song.cover" alt="" />
+          <div class="info">
+            <div class="title">{{ song.title }}</div>
+            <div class="artist">{{ song.artist }}</div>
+          </div>
+          <div class="duration">{{ song.duration }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
