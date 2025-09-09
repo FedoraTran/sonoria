@@ -1,1 +1,41 @@
-<p>player-bar works!</p>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+<footer class="m3-player">
+  <div class="now">
+    <img src="https://cdn.tienphong.vn/images/bdfc554ea35983ad68a96e0050b6e2cbde26d2cea8a14abe9872509f443d4e0757b274ec0215f8d955a870bbd09cf7481470fc1248b9ad866ea409eb9a8c909f/anh-1-15.jpg.webp" alt="">
+    <div>
+      <div class="title">Lé place has me</div>
+      <div class="artist">Dé Sontune Montepré</div>
+    </div>
+  </div>
+
+  <div class="center">
+    <div class="controls">
+      <button><span class="material-symbols-outlined">shuffle</span></button>
+      <button><span class="material-symbols-outlined">skip_previous</span></button>
+      <button class="play" (click)="togglePlay()">
+  <span class="material-symbols-outlined">
+    {{ isPlaying ? 'pause' : 'play_arrow' }}
+  </span>
+</button>
+      <button><span class="material-symbols-outlined">skip_next</span></button>
+      <button><span class="material-symbols-outlined">repeat</span></button>
+    </div>
+    <div class="progress">
+      <span>00:00</span>
+      <div class="bar"><div class="fill"></div></div>
+      <span>05:05</span>
+    </div>
+  </div>
+
+  <div class="right">
+    <button><span class="material-symbols-outlined">queue_music</span></button>
+    <button><span class="material-symbols-outlined">volume_up</span></button>
+    <div class="volume-bar"></div>
+  </div>
+
+
+
+
+
+</footer>

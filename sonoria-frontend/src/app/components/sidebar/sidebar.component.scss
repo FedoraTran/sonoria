@@ -149,9 +149,14 @@
   border-radius: 1000px;
 }
 
-.active {
-  transition: color 0.3s ease-in-out;
+//.active {
+//  transition: color 0.3s ease-in-out;
+//
+//}
 
+.active {
+  background-color: var(--mat-sys-surface-container-high) !important;
+  color: var(--mat-sys-on-primary) !important;
 }
 
 mat-sidenav {

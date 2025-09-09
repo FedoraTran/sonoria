@@ -1,0 +1,121 @@
+.m3-player {
+  position: sticky;
+  bottom: 0;
+  background: var(--md-sys-color-surface-variant, #232723);
+  color: #fff;
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.m3-player .now {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.m3-player .now img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.m3-player .now .title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.m3-player .now .artist {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.m3-player .center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.m3-player .controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.m3-player .controls button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.m3-player .controls button.play {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  color: #232723;
+  display: flex;                // căn giữa icon
+  align-items: center;          // căn giữa theo chiều dọc
+  justify-content: center; 
+}
+
+.m3-player .progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.m3-player .progress .bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: #fff;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+.m3-player .progress .fill {
+  width: 40%;
+  height: 100%;
+  background: var(--md-sys-color-primary, #fff);
+  opacity: 0.9;
+}
+
+.m3-player .progress span {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.m3-player .right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.m3-player .right button {
+  background: transparent;
+  color: #fff;
+  border: none; // bỏ viền trắng
+}
+
+.m3-player .volume-bar {
+  width: 100px;
+  height: 4px;
+  background: #fff;
+  opacity: 0.5;
+  border-radius: 999px;
+  margin-left: 8px;
+}
