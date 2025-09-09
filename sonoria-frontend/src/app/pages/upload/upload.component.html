@@ -1,80 +1,87 @@
-<div class="upload-shell">
-	<mat-card class="upload-card file-card" appearance="raised">
-		<div class="drop-area" (dragover)="onMp3DragOver($event)" (dragleave)="onMp3DragLeave($event)" (drop)="onMp3Drop($event)" (click)="mp3Input.click()" [class.filled]="mp3FileName" [class.drag-over]="mp3DragOver">
-			<input type="file" #mp3Input accept="audio/mp3,audio/mpeg" (change)="onMp3Change($event)" hidden />
-			<div class="drop-icon" *ngIf="!mp3FileName">
-				<mat-icon fontIcon="cloud_upload" class="cloud-icon"></mat-icon>
-			</div>
-			<div class="drop-text">
-				<ng-container *ngIf="mp3FileName; else dropPrompt">
-					<span class="mp3-file-name">{{ mp3FileName }}</span>
-				</ng-container>
-				<ng-template #dropPrompt>
-					Drag & drop file<br><span class="or-text">or click to choose MP3</span>
-				</ng-template>
-			</div>
-			<button mat-icon-button type="button" *ngIf="mp3FileName" class="remove-audio-btn" (click)="removeMp3($event)" aria-label="Remove file">
-				<mat-icon fontIcon="close"></mat-icon>
-			</button>
-			<div *ngIf="mp3Error" class="mp3-error">{{ mp3Error }}</div>
+<div class="app-upload">
+	<form class="upload-shell" [formGroup]="form">
+    <div class="left">
+      <div class="img-upload-box" (click)="imgInput.click()" [class.has-img]="imgPreview" [class.drag-over]="imgDragOver" (dragover)="onImgDragOver($event)" (dragleave)="onImgDragLeave($event)" (drop)="onImgDrop($event)">
+        <input type="file" #imgInput accept="image/*" (change)="onImgChange($event)" hidden />
+        <ng-container *ngIf="imgPreview; else uploadImgText">
+          <img [src]="imgPreview" alt="preview" class="img-preview" />
+          <button mat-mini-fab type="button" color="warn" class="remove-img-btn" (click)="removeImg($event)" aria-label="Remove image">
+            <mat-icon fontIcon="close"></mat-icon>
+          </button>
+        </ng-container>
+        <ng-template #uploadImgText>
+          <div class="img-placeholder">
+            <mat-icon fontIcon="image" class="img-icon"></mat-icon>
+            <span>Cover image</span>
+            <small>(Click or drag image)</small>
+          </div>
+        </ng-template>
+        <div *ngIf="imgError" class="img-error">{{ imgError }}</div>
+      </div>
+      <mat-card class="upload-card file-card" appearance="raised">
+        <div class="drop-area" (dragover)="onMp3DragOver($event)" (dragleave)="onMp3DragLeave($event)" (drop)="onMp3Drop($event)" (click)="mp3Input.click()" [class.filled]="mp3FileName" [class.drag-over]="mp3DragOver">
+          <input type="file" #mp3Input accept="audio/mp3,audio/mpeg" (change)="onMp3Change($event)" hidden />
+          <div class="drop-icon" *ngIf="!mp3FileName">
+            <mat-icon fontIcon="cloud_upload" class="cloud-icon"></mat-icon>
+          </div>
+          <div class="drop-text">
+            <ng-container *ngIf="mp3FileName; else dropPrompt">
+              <span class="mp3-file-name">{{ mp3FileName }}</span>
+            </ng-container>
+            <ng-template #dropPrompt>
+              Drag & drop file<br><span class="or-text">or click to choose MP3</span>
+            </ng-template>
+          </div>
+          <button mat-icon-button type="button" *ngIf="mp3FileName" class="remove-audio-btn" (click)="removeMp3($event)" aria-label="Remove file">
+            <mat-icon fontIcon="close"></mat-icon>
+          </button>
+          <div *ngIf="mp3Error" class="mp3-error">{{ mp3Error }}</div>
+        </div>
+      </mat-card>
+    </div>
+
+    <mat-card class="upload-card form-card" appearance="raised">
+      <div class="material-form">
+        <h2 class="form-title">Track information</h2>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Title</mat-label>
+          <input matInput name="title" formControlName="title" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Artist</mat-label>
+          <input matInput name="artist" formControlName="artist" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100 other-field">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="categoryId" style="color: white">
+            @for (category of categories$ | async; track $index) {
+              <mat-option [value]="category.id">
+                {{ category.name }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="upload-lyrics">
+          <div class="lyrics-tab">
+            <mat-form-field class="full-width no-border">
+              <textarea
+                matInput
+                rows="8"
+                placeholder="Type song lyrics here..."
+                formControlName="lyrics"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-reset" mat-stroked-button type="button" (click)=resetForm()>Reset</button>
+          <button class="btn-upload" mat-flat-button color="primary" type="submit"  (click)="onSubmit()">Upload</button>
+        </div>
 		</div>
-	</mat-card>
-
-	<mat-card class="upload-card form-card" appearance="raised">
-		<form #uploadForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="off" class="material-form">
-			<h2 class="form-title">Track information</h2>
-
-			<mat-form-field appearance="outline" class="w-100">
-				<mat-label>Title</mat-label>
-				<input matInput name="title" [(ngModel)]="title" required />
-			</mat-form-field>
-
-			<mat-form-field appearance="outline" class="w-100">
-				<mat-label>Artist</mat-label>
-				<input matInput name="artist" [(ngModel)]="artist" required />
-			</mat-form-field>
-
-											<!-- Category select OR inline custom input when choosing Other -->
-							<ng-container *ngIf="category !== 'Other'; else otherCategoryField">
-								<mat-form-field appearance="outline" class="w-100">
-									<mat-label>Category</mat-label>
-									<mat-select name="category" [(ngModel)]="category" required (selectionChange)="onCategoryChange($event.value)">
-										<mat-option *ngFor="let c of categories" [value]="c">{{ c }}</mat-option>
-									</mat-select>
-								</mat-form-field>
-							</ng-container>
-											<ng-template #otherCategoryField>
-											<mat-form-field appearance="outline" class="w-100 other-field">
-												<mat-label>Other category</mat-label>
-												<input matInput name="customCategory" [(ngModel)]="customCategory" #customCatInput required (keyup.escape)="cancelOther()" />
-												<button mat-icon-button matSuffix type="button" (click)="cancelOther()" aria-label="Cancel" tabindex="-1">
-													<mat-icon fontIcon="close"></mat-icon>
-												</button>
-											</mat-form-field>
-										</ng-template>
-
-			<div class="img-upload-box" (click)="imgInput.click()" [class.has-img]="imgPreview" [class.drag-over]="imgDragOver" (dragover)="onImgDragOver($event)" (dragleave)="onImgDragLeave($event)" (drop)="onImgDrop($event)">
-				<input type="file" #imgInput accept="image/*" (change)="onImgChange($event)" hidden />
-				<ng-container *ngIf="imgPreview; else uploadImgText">
-					<img [src]="imgPreview" alt="preview" class="img-preview" />
-					<button mat-mini-fab type="button" color="warn" class="remove-img-btn" (click)="removeImg($event)" aria-label="Remove image">
-						<mat-icon fontIcon="close"></mat-icon>
-					</button>
-				</ng-container>
-				<ng-template #uploadImgText>
-					<div class="img-placeholder">
-						<mat-icon fontIcon="image" class="img-icon"></mat-icon>
-						<span>Cover image</span>
-						<small>(Click or drag image)</small>
-					</div>
-				</ng-template>
-				<div *ngIf="imgError" class="img-error">{{ imgError }}</div>
-			</div>
-
-					<div class="form-actions">
-						<button class="btn-upload" mat-raised-button color="primary" type="submit" [disabled]="!uploadForm.form.valid || !mp3File">Upload</button>
-						<button class="btn-reset" mat-stroked-button type="button" (click)="uploadForm.resetForm(); removeMp3(); removeImg();">Reset</button>
-					</div>
-		</form>
-	</mat-card>
+	  </mat-card>
+	</form>
 </div>

@@ -10,9 +10,6 @@ export class Category {
   name: string;
 
   @Column('text', { nullable: true })
-  color: string;
-
-  @Column('text', { nullable: true })
   image: string;
 
   @OneToMany(() => Track, (track) => track.category, {

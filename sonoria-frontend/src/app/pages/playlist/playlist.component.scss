@@ -21,7 +21,7 @@
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 	gap: 24px;
-	padding: 24px 0;
+	padding: 24px 20px 0 0;
 	flex: 1 1 0%;
 }
 
@@ -103,4 +103,68 @@
 	color: #b3b3b3;
 	margin: 0;
 	text-align: center;
+}
+
+/* Create modal overlay */
+.create-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.create-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(0,0,0,0.6);
+}
+
+.create-modal {
+	position: relative;
+	width: min(520px, 92vw);
+	max-height: 90vh;
+	background: #1e1e1e;
+	border-radius: 12px;
+	box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+	padding: 20px;
+	color: #fff;
+	overflow: auto;
+}
+
+.create-title {
+	margin: 0 0 12px 0;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+.create-form {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.img-upload-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.create-img-preview {
+	width: 64px;
+	height: 64px;
+	object-fit: cover;
+	border-radius: 8px;
+	border: 1px solid #333;
+}
+
+.create-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	margin-top: 8px;
 }

@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit {
     { icon: 'cloud_upload', title: 'Upload', route: 'upload' },
     { icon: 'playlist_play', title: 'Playlist', route: 'playlist' },
     { icon: 'account_circle', title: 'Profile', route: 'profile' },
+    { icon: 'search', title: 'Search', route: 'search' } // Thêm mục Search
   ];
 
   ngOnInit() {

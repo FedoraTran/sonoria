@@ -1,10 +1,50 @@
 <mat-toolbar>
   <div class="outline-search">
-    <input type="text" placeholder="Search some song" class="search-input" />
-    <mat-icon  class="material-symbols-rounded">search</mat-icon>
+    <form (submit)="onSearch()">
+      <input
+        type="text"
+        [(ngModel)]="query"
+        name="search"
+        placeholder="Search some song"
+        class="search-input"
+        autocomplete="off"
+      />
+      <button type="submit" class="search-btn">
+        <mat-icon class="material-symbols-rounded">search</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="clear-btn"
+        *ngIf="query"
+        (click)="query=''"
+        aria-label="Clear"
+      >
+        <mat-icon class="material-symbols-rounded">close</mat-icon>
+
+      </button>
+    </form>
   </div>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="user-none-login" aria-label="Example icon-button with share icon">
-    <mat-icon class="material-symbols-rounded">person</mat-icon>
-  </button>
+
+  @if (profile$|async; as profile) {
+    @if (profile.uid) {
+      <div class="user-login" [matMenuTriggerFor]="profileMenu">
+        <img src="{{ profile.photoURL }}" class="user-profile" (error)="onImgError($event)" alt="avatar"/>
+      </div>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item (click)="navigateToProfile()">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Log out</span>
+        </button>
+      </mat-menu>
+    } @else {
+      <button mat-flat-button (click)="openLoginDialog()">
+        Login
+      </button>
+    }
+  }
 </mat-toolbar>
