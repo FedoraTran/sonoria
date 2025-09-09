@@ -1,66 +1,76 @@
 .song-card {
-  width: 400px;
-  max-width: 400px;
-  min-width: 400px;
-  min-height: 80px;
-  height: 80px;
-  background: #222;
-  color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  display: flex;
-  margin-bottom: 8px;
-  overflow: hidden;
-  padding: 0;
-}
-.song-cover {
-  width: 80px;
-  height: 80px;
-  border-radius: 12px 0 0 12px;
-  object-fit: cover;
-  margin: 0;
-  background: #333;
-  flex-shrink: 0;
-  display: block;
-  /* Ensure image is flush with the left edge */
-}
-.song-info-row {
-  display: flex;
-  flex: 1;
+  display: grid;
+  grid-template-columns: 72px 2fr 1fr 0.6fr 40px;
   align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  min-height: 72px; /* đảm bảo chiều cao đồng đều */
+}
+
+.song-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Container cover chiếm toàn bộ chiều cao row */
+.cover-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;   /* cao bằng song-card */
+  width: 72px;    /* giữ cố định chiều rộng */
+}
+
+.cover-container .cover {
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* Info */
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
   font-size: 16px;
-  color: #fff;
-  min-width: 0;
-  /* Removed left padding so info starts right after cover */
+  font-weight: 500;
+  color: white;
 }
-.song-name {
-  flex: 2;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+.artist {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
 }
-.song-album {
-  flex: 2;
-  text-align: left;
-  color: #90caf9;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+.added,
+.duration {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
 }
-.song-date {
-  flex: 1;
-  text-align: center;
-  color: #bdbdbd;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
 }
-.song-duration {
-  flex: 1;
-  text-align: right;
-  color: #bdbdbd;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.2s;
+}
+
+.icon-btn:hover {
+  color: white;
 }

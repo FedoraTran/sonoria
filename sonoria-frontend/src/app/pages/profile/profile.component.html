@@ -1,37 +1,30 @@
-<div id="container">
-  <div id="user-ìnfo-container">
-    <div class="user-info">
-      <img src="https://hips.hearstapps.com/hmg-prod/images/michael-b-jordan-GettyImages-482462800_1600.jpg?resize=1200:*" class="avatar" alt="User avatar" />
-      <span>
-        <div>DPhan (dphan420)</div>
-        <div> HCM city, VietNam </div>
-      </span>
+<div class="profile-container mat-elevation-z2">
+  <!-- Thông tin user -->
+  <div class="profile-card">
+    <img [src]="user.avatar" alt="User avatar" class="avatar" />
+    <div class="profile-meta">
+      <h2 class="name">{{ user.name }}</h2>
+      <p class="handle">{{ user.username }}</p>
+      <p class="location">{{ user.location }}</p>
     </div>
-    <span>
-        <mat-chip color="primary">Follow</mat-chip>
-    </span>
+    <button class="follow-btn">Theo dõi</button>
   </div>
 
-  <div class="user-stats">
-    <mat-chip color="primary">Followers: {{ user.followers }}</mat-chip>
-    <mat-chip color="accent">Following: {{ user.following }}</mat-chip>
-    <mat-chip color="warn">Playlists: {{ user.playlists }}</mat-chip>
-
-  </div>
-
-  <div class="song-section">
-    <h3>Your Songs</h3>
-    <div class="song-header-row">
-      <span class="song-header">Name</span>
-      <span class="song-header">Album</span>
-      <span class="song-header">Added Date</span>
-      <span class="song-header">Duration</span>
+  <!-- Danh sách bài hát -->
+  <div class="songs-section">
+    <div class="songs-header">
+      <span></span> <!-- chừa chỗ cho cover -->
+      <span>#</span>
+      <span>Name</span>
+      <span>Added date</span>
+      <span>Duration</span>
+      <span></span> <!-- chừa chỗ cho actions -->
     </div>
     <mat-divider></mat-divider>
-    <div class="song-list">
-      @for (song of song; track $index) {
+    <div class="songs-list">
+      @for (song of songs; track $index) {
         <app-song-card  [song]="song"></app-song-card>
       }
-    </div>
   </div>
+</div>
 </div>

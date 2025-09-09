@@ -1,0 +1,12 @@
+<div class="next-up">
+  <h3 class="title">Next Up</h3>
+  @for (track of tracks; track track.name) {
+    <div class="track">
+      <img [src]="track.cover" alt="{{ track.name }}" class="cover" />
+      <div class="info">
+        <span class="name">{{ track.name }}</span>
+        <span class="artist">{{ track.artist }}</span>
+      </div>
+    </div>
+  }
+</div>

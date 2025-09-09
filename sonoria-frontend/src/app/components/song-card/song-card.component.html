@@ -1,11 +1,22 @@
-<mat-card class="song-card">
-  @if (song?.cover) {
-    <img [src]="song.cover" alt="Song cover" class="song-cover" />
-  }
-  <div class="song-info-row">
-    <span class="song-name">{{ song.name }}</span>
-    <span class="song-album">{{ song.album }}</span>
-    <span class="song-date">{{ song.addedDate }}</span>
-    <span class="song-duration">{{ song.duration }}</span>
+<div class="song-card">
+  <div class="cover-container">
+    <img [src]="song.cover" alt="{{ song.name }} cover" class="cover" />
   </div>
-</mat-card>
+
+  <div class="meta">
+    <span class="title">{{ song.name }}</span>
+    <span class="artist">{{ song.artist }}</span>
+  </div>
+
+  <span class="added">{{ song.addedDate | date: 'dd/MM/yyyy' }}</span>
+  <span class="duration">{{ song.duration }}</span>
+
+  <div class="actions">
+    <button class="icon-btn fav">
+      <mat-icon>favorite_border</mat-icon>
+    </button>
+    <button class="icon-btn">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+  </div>
+</div>
