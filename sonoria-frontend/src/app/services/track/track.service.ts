@@ -6,6 +6,7 @@ import {TrackModel} from '../../models/track.model';
 import {Store} from '@ngrx/store';
 import {AuthState} from '../../ngrx/auth/auth.state';
 import {environment} from '../../../environments/environment.development';
+import {ProfileModel} from '../../models/profile.model';
 
 export interface UploadProgressEvent {
   type: 'progress' | 'done';
@@ -97,8 +98,8 @@ export class TrackService {
 
     return this.store.select('auth', 'currentUser').pipe(
       take(1),
-      switchMap(user => {
-        if (!user) throw new Error('User not logged in');
+      switchMap((user: ProfileModel) => {
+        if (!user || !user.uid) throw new Error('User not logged in');
 
         const params = new HttpParams()
           .set('trackId', trackId)
