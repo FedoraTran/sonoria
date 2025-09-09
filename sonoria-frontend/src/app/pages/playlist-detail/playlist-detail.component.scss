@@ -1,0 +1,162 @@
+.playlist-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px; /* trái = playlist, phải = next-up */
+  gap: 32px;
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* ---------------- Playlist detail ---------------- */
+.playlist-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--mat-sys-on-surface);
+}
+
+/* Header */
+/* Header card nền xanh, bo góc giống ảnh */
+.playlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 16px;
+  border-radius: var(--mat-sys-corner-large);
+  background: var(--mat-sys-primary);
+  box-shadow: var(--mat-sys-level2);
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+
+    /* Dòng tiêu đề + nút play */
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .titles {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      h2 {
+        margin: 0;
+        /* to và đậm như ảnh */
+        font: var(--mat-sys-display-small);
+        color: var(--mat-sys-on-primary);
+      }
+
+      p {
+        margin: 0;
+        font: var(--mat-sys-body-medium);
+        color: color-mix(in srgb, var(--mat-sys-on-primary) 80%, transparent);
+      }
+    }
+
+    /* Hàng nút actions NHỎ (ô nền nhạt) nằm dưới */
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      .chip {
+        width: 36px;
+        height: 28px;
+        border-radius: 6px;
+        /* nền nhạt kiểu “trắng” trên nền primary */
+        background: var(--mat-sys-primary-fixed);         /* nhạt */
+        color: var(--mat-sys-on-primary);
+        border: none;
+        box-shadow: var(--mat-sys-level1);
+
+        &:hover {
+          background: var(--mat-sys-primary-fixed-dim);
+        }
+
+        mat-icon { font-size: 18px; }
+      }
+    }
+  }
+
+  /* Nút Play tròn to, cùng dòng với tiêu đề (bên trái) */
+  .play-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--mat-sys-on-primary);      /* tròn đen như ảnh */
+    color: var(--mat-sys-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--mat-sys-level2);
+
+    mat-icon { font-size: 26px; }
+
+    &:hover {
+      filter: brightness(0.95);
+    }
+  }
+
+  /* Ô ảnh vuông bên phải (nút upload) */
+  .cover-upload {
+    width: 96px;
+    height: 96px;
+    border-radius: var(--mat-sys-corner-medium);
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: var(--mat-sys-inverse-surface);
+
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    &:hover { filter: brightness(1.05); }
+  }
+}
+/* ---------------- Songs ---------------- */
+.songs-header {
+  display: grid;
+  grid-template-columns: 40px 60px 1.8fr 0.9fr 0.6fr 40px;
+  padding: 8px 0;
+  font: var(--mat-sys-label-medium);
+  font-weight: var(--mat-sys-medium-font-weight);
+  color: var(--mat-sys-on-surface-variant);
+  align-items: center;
+}
+
+.songs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ---------------- Next Up ---------------- */
+.next-up-panel {
+  background: var(--mat-sys-surface-container-low);
+  border-left: 1px solid var(--mat-sys-outline-variant);
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  h3 {
+    font: var(--mat-sys-title-large);
+    font-weight: var(--mat-sys-bold-font-weight);
+    margin: 0 0 16px;
+  }
+}

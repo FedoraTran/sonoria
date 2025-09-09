@@ -1,1 +1,59 @@
-<p>playlist-detail works!</p>
+<div class="playlist-layout">
+  <!-- Main playlist detail -->
+  <div class="playlist-detail">
+    <!-- Playlist header -->
+    <div class="playlist-header">
+      <div class="info">
+        <!-- Hàng tiêu đề + nút play -->
+        <div class="title-row">
+          <button class="play-btn" aria-label="Play playlist">
+            <mat-icon>play_arrow</mat-icon>
+          </button>
+
+          <div class="titles">
+            <h2>{{ playlist.title }}</h2>
+            <p>{{ playlist.owner }} / {{ songs.length }} song</p>
+          </div>
+        </div>
+
+        <!-- Hàng actions nhỏ nằm dưới -->
+        <div class="actions">
+          <button mat-icon-button class="chip" aria-label="Edit"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button class="chip" aria-label="Change cover" (click)="coverInput.click()">
+            <mat-icon>image</mat-icon>
+          </button>
+          <button mat-icon-button class="chip" aria-label="Add"><mat-icon>add</mat-icon></button>
+          <button mat-icon-button class="chip" aria-label="Remove"><mat-icon>remove</mat-icon></button>
+          <button mat-icon-button class="chip" aria-label="More"><mat-icon>more_horiz</mat-icon></button>
+        </div>
+      </div>
+
+      <!-- Nút upload cover bên phải -->
+      <button class="cover-upload" type="button" (click)="coverInput.click()" aria-label="Upload cover">
+        <img [src]="playlist.cover || 'assets/placeholder-cover.png'" alt="Playlist cover"/>
+      </button>
+      <input #coverInput id="coverInput" type="file" accept="image/*" hidden (change)="onCoverSelected($event)"/>
+    </div>
+
+    <!-- Song header -->
+    <div class="songs-header">
+      <span></span>
+      <span>#</span>
+      <span>Name</span>
+      <span>Added date</span>
+      <span>Duration</span>
+      <span></span>
+    </div>
+    <mat-divider></mat-divider>
+
+    <!-- Song list -->
+    <div class="songs-list">
+      @for (song of songs; track song.name) {
+        <app-song-card [song]="song"></app-song-card>
+      }
+    </div>
+  </div>
+
+  <!-- Next Up -->
+  <app-next-up class="next-up-panel"></app-next-up>
+</div>

@@ -1,19 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-
+import {MaterialModule} from '../../shared/modules/material.module';
+import { Song } from '../../shared/modules/song.module';
+import {DatePipe} from '@angular/common';
 @Component({
   selector: 'app-song-card',
-  standalone: true,
-  imports: [MatCardModule],
+  imports: [MaterialModule, DatePipe],
   templateUrl: './song-card.component.html',
   styleUrls: ['./song-card.component.scss']
 })
 export class SongCardComponent {
-  @Input() song!: {
-    name: string;
-    album: string;
-    addedDate: string;
-    duration: string;
-    cover?: string;
-  };
+  @Input() song!: Song;
 }
